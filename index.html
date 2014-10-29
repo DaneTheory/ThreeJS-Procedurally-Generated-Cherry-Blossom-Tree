@@ -1,0 +1,773 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+		<style>
+			body {
+				margin: 0px;
+				overflow: hidden;
+			}
+
+			#xgui {
+				position: absolute;
+				right: 0;
+				top: 0;
+				z-index: 100;
+				background-color: #fff;
+				opacity: 0.2;
+			}
+
+			#xgui:hover {
+				opacity: 0.9;
+			}
+
+			#info {
+				position: absolute;
+				width: 100%;
+				z-index: 10;
+				text-align: center;
+				font-family:  monospace;
+				height: 30px;
+				white-space: pre-wrap;
+				word-wrap: break-word; 
+				overflow: hidden;
+				cursor: pointer;
+				color: #454662; 
+				/*8039A6*/
+			}
+
+			a:hover, a:visited, a:link, a:active {
+				color: #454662;
+			}
+
+			hr {
+				border: 0;
+				color: #454662;
+				background-color: #454662;
+				height: 1px;
+				width: 300px;
+				opacity: 0.15;
+			}
+
+			#info:hover {
+				height: auto;
+				cursor: crosshair;
+
+			}
+
+			.blur {
+				-webkit-filter: blur(6px);
+				-moz-filter: blur(6px);
+				-o-filter: blur(6px);
+				-ms-filter: blur(6px);
+				filter: blur(6px);
+			}
+
+			canvas {
+				transition: all 0.5s;
+			}
+
+			iframe {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				opacity: 0.3;
+				transition: opacity 0.5s;
+			}
+
+			iframe:hover {
+				opacity: 1;
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<script src="../js/old/three.min.js"></script>
+		<script src="../js/shader/ShaderDSL.js"></script>
+		<script src="../js/stats.min.js"></script>
+	
+		<script src="../js/proctree.js"></script>
+	
+        <script src="../js/ThreeUtils2.js"></script>
+		<script src="../js/crayon.min.js"></script>
+		<script src="../js/ParticleGeometry.js"></script>
+		<script src="../js/GeometryUtils.js"></script>
+
+		<script id="vertexShader" type="x-shader/x-vertex">
+
+			precision mediump float;
+			precision mediump int;
+
+			uniform mat4 modelViewMatrix; // optional
+			uniform mat4 projectionMatrix; // optional
+
+			attribute vec3 position;
+			attribute vec3 offset;
+			attribute vec3 rotation;
+			attribute vec2 uv;
+
+			attribute vec3 color;
+			
+
+			varying vec3 vColor;
+			varying vec2 vUv;
+
+			void main()	{
+
+				vColor = color;
+
+
+				float
+				cosrx = cos(rotation.x),
+				sinrx = sin(rotation.x),
+				cosry = cos(rotation.y),
+				sinry = sin(rotation.y),
+				cosrz = cos(rotation.z),
+				sinrz = sin(rotation.z);
+				
+				mat3 rotX = mat3(
+					0.0, 0.15, 0.15,
+					0.0, cosrx, sinrx,
+					0.0, -sinrx, cosrx
+				);
+
+				mat3 rotY =  mat3(
+					cosry, 1.0 , -sinry,
+					2.0    , 1.0, 0.0,
+					sinry, 0.0, cosry
+				);
+
+				mat3 rotZ =  mat3(
+					cosrz , sinrz, 0.0,
+					-sinrz, cosrz, 0.0,
+					0.0 , 0.0    , 1.0
+				);
+
+				vec3 newPosition = offset + position * rotZ * rotY * rotX;
+		
+				vUv = uv;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+
+			}
+
+		</script>
+
+		<script id="fragmentShader" type="x-shader/x-fragment">
+
+			precision mediump float;
+			precision mediump int;
+
+			uniform float time;
+			uniform float depth;
+			uniform sampler2D texture;
+
+			varying vec3 vColor;
+			varying vec2 vUv;
+
+			vec4 pack_depth( const in float depth ) {
+
+				const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0 );
+				const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0 );
+				vec4 res = fract( depth * bit_shift );
+				res -= res.xxyz / bit_mask;
+				return res;
+
+			}
+
+			void main()	{
+
+				//gl_FragColor = vec4( 1., 1., 1., 1. );
+				vec4 tex = texture2D(texture, vUv);
+
+				// alpha test
+				if (tex.a < 0.5) discard;
+
+				if (depth > 0.) {
+
+					gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
+
+				} else {
+
+					vec4 color =  vec4(tex.xyz *  vColor, 1. );
+
+					gl_FragData[ 0 ] =  color;
+				}
+
+			}
+
+		</script>
+
+<div id="info"></div>
+		
+		<script type="x-shader/x-fragment" id="fragmentShaderDepth">
+
+			uniform sampler2D texture;
+			varying vec2 vUV;
+
+			vec4 pack_depth( const in float depth ) {
+
+				const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0 );
+				const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0 );
+				vec4 res = fract( depth * bit_shift );
+				res -= res.xxyz * bit_mask;
+				return res;
+
+			}
+
+			void main() {
+
+				vec4 pixel = texture2D( texture, vUV );
+
+				if ( pixel.a < 0.3 ) discard;
+
+				gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
+
+			}
+		</script>
+
+		<script type="x-shader/x-vertex" id="vertexShaderDepth">
+
+			varying vec2 vUV;
+
+			void main() {
+
+				vUV = uv;
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script>
+
+
+
+		<script>
+
+
+			var LEAVES = 10000; // 10000 is ideal
+			var ON_TREE = 0, ON_AIR = 5, ON_GROUND = 2;
+			GROUND_WIDTH = 1000;
+			GROUND_ELEVATION = 1000;
+
+			var camera, scene, renderer;
+			var mesh;
+			var stats;
+			var tree1;
+
+			tt = 0;
+			sins = [];
+			last = Date.now();
+			windForce = new THREE.Vector3(1000,700,400);
+
+			var info = document.getElementById('info');
+			info.addEventListener('mouseover', function() {
+				renderer.domElement.classList.add('blur');
+			});
+
+			info.addEventListener('mouseout', function blur() {
+				renderer.domElement.classList.remove('blur');
+			});
+
+			init();
+			leavesFall();
+			animate();
+
+			function hill(u, v) {
+
+				u = 0.5 - u;
+				v = v - 0.5;
+
+				var r2 = u * u * 0.5 + v * v * 0.5 ;
+				
+				return new THREE.Vector3(u * GROUND_WIDTH, - r2 * GROUND_ELEVATION , v * GROUND_WIDTH);
+			}
+
+			function checkFloor(x, y) {
+				var u = x / GROUND_WIDTH;
+				var v = y / GROUND_WIDTH;
+				var r2 = u * u + v * v;
+				return - r2 * GROUND_ELEVATION;
+			}
+
+			function leavesFall() {
+				setTimeout(leavesFall, 100 * Math.random() * Math.random());
+
+				fallings[Math.random() * LEAVES | 0] = ON_AIR;
+			}
+
+			function proctreeToBufferGeometry(vertices, faces, UVs, NORMALS) {
+
+				var geometry = new THREE.BufferGeometry();
+
+				var triangles = faces.length;
+
+				var positions = new Float32Array( triangles * 3 * 3 );
+				var normals = new Float32Array( triangles * 3 * 3 );
+				var uvs = new Float32Array( triangles * 3 * 2 );
+
+				geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+				geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
+				geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+
+				var ii = 0, jj = 0, kk = 0;
+
+				for (i=0, il=faces.length; i < il; i++) {
+					var f = faces[i];
+					
+
+					for (j = 0; j < 3; j++) {
+						var vertexIndex = f[j];
+						var vertex = vertices[vertexIndex];
+						var uv = UVs[vertexIndex];
+						var normal = NORMALS[vertexIndex];
+
+						positions[ii++] = vertex[0];
+						positions[ii++] = vertex[1];
+						positions[ii++] = vertex[2];
+
+						normals[kk++] = normal[0];
+						normals[kk++] = normal[1];
+						normals[kk++] = normal[2];
+
+						uvs[ jj ++ ] = uv[0];
+						uvs[ jj ++ ] = uv[1];
+
+
+					}
+				}
+
+				return geometry;
+
+			}
+
+			function addTree() {
+
+				console.log('generate tree...')
+
+				if (tree1) scene.remove(tree1);
+
+				treeParams = {
+				                "seed":209,
+                                "segments":6,
+                                "levels":4,
+                                "vMultiplier":8.16,
+                                "twigScale":0.32,
+                                "initalBranchLength":0.95,
+                                "lengthFalloffFactor":0.96,
+                                "lengthFalloffPower":0.99,
+                                "clumpMax":0.487,
+                                "clumpMin":0.447,
+                                "branchFactor":3.25,
+                                "dropAmount":0.03,
+                                "growAmount":0.261,
+                                "sweepAmount":0.046,
+                                "maxRadius":0.209,
+                                "climbRate":0.754,
+                                "trunkKink":0.424,
+                                "treeSteps":2,
+                                "taperRate":0.941,
+                                "radiusFalloffRate":0.68,
+                                "twistRate":5.28,
+                                "trunkLength":0.95,
+                                "trunkMaterial":"TrunkType3",
+                                "twigMaterial":"BranchType4"
+                                                            } 
+
+				// console.log(JSON.stringify(treeParams));
+
+				tree = new Tree(treeParams);
+
+				treeGeometry = proctreeToBufferGeometry(tree.verts, tree.faces, tree.UV, tree.normals);
+				twigGeometry = proctreeToBufferGeometry(tree.vertsTwig, tree.facesTwig, tree.uvsTwig, tree.normalsTwig);
+
+				treeGeometry.applyMatrix( new THREE.Matrix4().makeScale( 50, 50, 50 ) );
+				twigGeometry.applyMatrix( new THREE.Matrix4().makeScale( 50, 50, 50 ) );
+
+				trunkMesh = new THREE.Mesh(treeGeometry,  new THREE.MeshPhongMaterial( { // MeshPhongMaterial
+					color: 0xFFFFFF,
+					emissive: 0xFFEFFF,
+				} )); 
+
+				leavesMesh = new THREE.Mesh(twigGeometry,  new THREE.MeshBasicMaterial( { /// MeshBasicMaterial
+					side: THREE.DoubleSide,
+					alphaTest: 0.75,
+					color: 0xffffff,
+					emissive: 0xffffff,
+					shininess: 200
+				} ));
+
+                
+				var uniforms = { texture:  { type: "t", value: petalTexture } };
+				var vertexShader = document.getElementById( 'vertexShaderDepth' ).textContent;
+				var fragmentShader = document.getElementById( 'fragmentShaderDepth' ).textContent;
+
+				leavesMesh.customDepthMaterial = new THREE.ShaderMaterial( { uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader } );
+
+				leavesMesh.visible = false;
+
+				tree1 = new THREE.Object3D();
+				 //tree1.position.z = tt++ * 100 ;
+
+				scene.add(tree1);
+
+				tree1.add(trunkMesh);
+				tree1.add(leavesMesh);
+
+				trunkMesh.castShadow = true;
+				trunkMesh.receiveShadow = true;
+
+				leavesMesh.castShadow = true;
+				leavesMesh.receiveShadow = true;
+
+				points = THREE.GeometryUtils.randomPointsInBufferGeometry(twigGeometry, LEAVES);
+						
+			}
+
+			function init() {
+
+				renderer = new THREE.WebGLRenderer({
+					devicePixelRatio: 1
+				});
+
+				renderer.shadowMapEnabled = true;
+				renderer.shadowMapType = THREE.PCFShadowMap;
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+
+				//
+
+				stats = new Stats();
+				stats.domElement.style.position = 'absolute';
+				stats.domElement.style.top = '0px';
+				document.body.appendChild( stats.domElement );
+
+				//
+
+				CRAYON.extends( 'SceneNode', CRAYON.ShaderNode, {
+
+					init: function() {
+
+						CRAYON.ShaderNode.call( this );
+						// Renders scene to Render Target				
+						camera = new THREE.PerspectiveCamera( 130, window.innerWidth / window.innerHeight, 50, 5500 );
+                        //camera.position.set(90, 0, 40);
+                        
+						camera.target = new THREE.Vector3().set(70,120,-70);
+						scene = new THREE.Scene();
+						renderer.setClearColor( 0xFFFFFF );
+						
+
+						function directionalLight(x, y, z, color) {
+							var light = new THREE.DirectionalLight(color);
+							light.position.set(x,y,z).normalize();
+							return light;
+						}
+
+						scene.add(directionalLight(.1,2,5, 0xFFFFFF));
+
+						light = new THREE.SpotLight( 0xFFFFFF, 20, 0, Math.PI / 2, 10 );
+						light.position.set( -500, 1100, -1000 );
+						light.target.position.set( -300,500,-300 );
+
+						light.castShadow = true;
+
+						light.shadowCameraNear = -40;
+						light.shadowCameraFar = 100;
+						light.shadowCameraFov = 50;
+
+						//light.shadowCameraVisible = true;
+
+						light.shadowBias = 0.009;
+						light.shadowDarkness = 0.40;
+
+						light.shadowMapWidth = window.innerWidth / 2;
+						light.shadowMapHeight = window.innerHeight / 2;
+
+						scene.add(light);
+
+						scene.add(new THREE.AmbientLight(0x000000));
+
+						var material = new THREE.MeshBasicMaterial( { color: parseInt("F5FBFB", 16), shininess: 10, wireframe: !true } );
+
+						var geometry = new THREE.ParametricGeometry(hill, 4, 4);
+
+						ground = new THREE.Mesh( geometry, material );
+						
+						scene.add( ground );
+
+						ground.castShadow = !true;
+						ground.receiveShadow = true;
+
+
+						petalTexture = THREE.ImageUtils.loadTexture( "../images/snowflake7_alpha.png" );
+
+						addTree();
+
+						var cols = [];
+						
+						'FDDBFD,FFDAF0,F2BCE0,F5E6F7,FFB2E1,FBBAE5' // leaves/petals colors
+						.split(',').forEach(function(col) {
+							cols.push( parseInt(col, 16) );
+						} );
+
+						var face = 0;
+						var color = new THREE.Color();
+
+						// var
+						leaves = geometry = new THREE.ParticleGeometry( LEAVES, 3.5 );
+
+						rx = [], ry = [], rz = [], dx = [], dy = [], dz = [], fallings = [],
+						offset = new THREE.Vector3(),
+						rotation = new THREE.Vector3();
+
+						var point;
+
+						for (i=0;i<LEAVES;i++) {
+
+							point = points[i];
+
+							if (i < 1000) {
+								// distribute them around a disk
+								var r = Math.random() * Math.random() * 300;
+								var t = Math.random() * Math.PI * 2;
+								point.x = Math.cos(t) * r;
+								point.z = Math.sin(t) * r;
+								point.y = checkFloor(point.x, point.z);
+								
+								fallings [ i ] = ON_GROUND;
+							} else {
+								fallings [ i ] = ON_TREE;
+							}
+							
+							geometry.setSprite( 'offsets', i, point.x, point.y, point.z );
+							geometry.setSprite( 'rotations', i, Math.random() * 7, Math.random() * 7, Math.random() * 7);
+
+							rx.push(Math.random() - 0.5)
+							ry.push(Math.random() - 0.5)
+							rz.push(Math.random() - 0.5)
+							dx.push(Math.random() - 0.5)
+							dy.push(-Math.random())
+							dz.push(Math.random() - 0.5)
+
+							color.set( cols[ Math.random() * cols.length | 0 ] );
+
+							geometry.setSprite( 'colors', i, color.r, color.g, color.b);
+
+						}
+
+						var petalOptions = {
+
+							uniforms: {
+								time: { type: "f", value: 1.0 },
+								depth: { type: "f", value: 0.0 },
+								texture: { type: 't', value: petalTexture} 
+							},
+							attributes: {
+								offset: { type: 'v3', value: null },
+								rotation: { type: 'v3', value: null },
+							},
+							vertexShader: document.getElementById( 'vertexShader' ).textContent,
+							fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+							side: THREE.DoubleSide
+							, transparent: true
+
+						}
+
+						material = new THREE.RawShaderMaterial( petalOptions );
+
+						depthOptions = {
+							uniforms: THREE.UniformsUtils.clone( petalOptions.uniforms ),
+							attributes: {
+								offset: { type: 'v3', value: null },
+								rotation: { type: 'v3', value: null },
+							},
+							vertexShader: document.getElementById( 'vertexShader' ).textContent,
+							fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
+							side: THREE.DoubleSide
+							, transparent: true
+
+						}
+
+						depthMaterial = new THREE.RawShaderMaterial( depthOptions );
+						depthMaterial.uniforms.depth.value = 1;
+
+						petals = new THREE.Mesh( geometry, material );
+						petals.castShadow = true;
+						petals.receiveShadow = true;
+						petals.customDepthMaterial = depthMaterial;
+
+						scene.add( petals );
+
+					},
+
+
+					render: function() {
+
+						now = Date.now();
+
+						var t = now * 0.00004;
+						var r = 300;
+						
+						camera.position.set(Math.cos(t) * r,  Math.cos(t * 2) * 40 + 45, Math.sin(t) * r);
+						
+						camera.lookAt(camera.target);
+
+						if (tree1) {
+
+							tree1.rotation.y = Math.sin(now * 0.00015) * 0.05;
+							tree1.rotation.x = Math.sin(now * 0.0009) * 0.02;
+							tree1.rotation.z = Math.sin(now * 0.0008) * 0.02
+						}
+
+						renderer.clear();
+						renderer.render( scene, camera, this.renderTarget );
+					}
+
+				} );
+
+
+				//
+
+				sceneNode = new CRAYON.SceneNode();
+				sceneDepthNode = new CRAYON.SceneDepthNode( sceneNode );
+				screenNode = new CRAYON.RenderToScreenNode( renderer );
+
+				executorNode = new CRAYON.ExecutorNode( renderer );
+
+				screenNode = new CRAYON.RenderToScreenNode( renderer );
+				edgeNode = new CRAYON.EdgeFilterNode( renderer );
+				multiplyNode = new CRAYON.MultiplyNode( renderer );
+
+				executorNode = new CRAYON.ExecutorNode( renderer );
+
+				blurNode = new CRAYON.BlurNode( renderer, 1, 1 ); // 1 repeat, 1 downsize
+				blurNode2 = new CRAYON.BlurNode( renderer, 2, 2 );
+				var paper = THREE.ImageUtils.loadTexture( "../images/natural_paper.png" ); // beige-paper-texture.jpg exclusive_paper_@2X
+				multiplyNode.material.uniforms.texture3.value = paper;
+
+
+				/*
+				// Normal
+				sceneNode.connect(screenNode, 'texture');
+				screenNode.connect(executorNode, 'texture');
+				*/
+				
+
+				/**/
+				sceneNode.connect(blurNode);
+				blurNode.connect(blurNode2);
+
+				blurNode.connect(multiplyNode, 'texture1');
+				blurNode2.connect(multiplyNode, 'texture2');
+
+				multiplyNode.connect(screenNode);
+				screenNode.connect(executorNode, 'texture');
+				
+
+				// TODO handle resizing
+				// window.addEventListener( 'resize', onWindowResize, false );
+
+
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				now = Date.now()
+				delta = (now - last) / 1000;
+				last = now;
+				time = now * 0.00015
+				sins[0] = Math.sin(time * 2 + 0)
+				sins[1] = Math.sin(time * 3 + 1.1)
+				sins[2] = Math.sin(time * 5 + 1.3)
+				sins[3] = Math.sin(time * 7 + 1.5)
+				sins[4] = Math.sin(time * 9 + 1.9)
+
+
+				windForce.set( Math.sin( now / 2000 ) * 0.5, Math.cos( now / 3000 ) * 0.5, Math.sin( now / 5000 ) * 0.5 - 0.3);
+
+				for (i=0;i<LEAVES;i++) {
+					
+					leaves.getFaceRotation(i * 2, rotation);
+					leaves.getSpriteOffset(i, offset);
+					
+					// reduce sin calculations. TODO should perhaps use some noise here instead
+					sin = sins[i % 5] + sins[(i+3) % 5] * 0.5 + sins[(i+5) % 5] * 0.25;
+
+					switch (fallings[i]) {
+
+						case ON_TREE:
+							rotation.x = rx[i] + sin * 0.2;
+							rotation.y = ry[i] + sin * 1.2;
+							rotation.z = rz[i] + sin * 0.2;
+
+							offset.copy( points[i] );
+							trunkMesh.localToWorld( offset );
+
+							break;
+						case ON_AIR:
+							dx[i] += windForce.x * delta * 0.5;
+							dy[i] += windForce.y * delta * 0.5;
+							dy[i] -= 0.2 * delta;
+							dz[i] += windForce.z * delta * 0.5;
+
+							offset.x += dx[i] * delta * 10;
+							offset.y += dy[i] * delta * 10;
+							offset.z += dz[i] * delta * 10;
+
+							rotation.x += rx[i] * delta * 5;
+							rotation.y += ry[i] * delta * 5;
+							rotation.z += rz[i] * delta * 5;
+
+							if (offset.y - 5 <= checkFloor(offset.x, offset.z)) {
+								// could repawn here if needed
+								fallings[i] = ON_GROUND;
+							}
+
+							break;
+						case ON_GROUND:
+							rotation.x = rx[i] + sin * 0.1;
+							rotation.y = ry[i] + sin * 0.1;
+							rotation.z = rz[i] + sin * 0.1;
+							break;
+					}
+
+					leaves.setSprite( 'rotations', i, rotation.x, rotation.y, rotation.z );
+					leaves.setSprite( 'offsets', i, offset.x, offset.y, offset.z );
+
+				}
+
+				leaves.attributes.rotation.needsUpdate = true;
+				leaves.attributes.offset.needsUpdate = true;
+
+				multiplyNode.material.uniforms.time.value = delta;
+
+				executorNode.renderAll();
+
+				stats.update();
+
+			}
+
+		</script>
+
+	    <!--REMOVE BEFORE GOING LIVE-->
+        <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':62182/autorefresh.js"></' + 'script>')</script>
+	</body>
+</html>
