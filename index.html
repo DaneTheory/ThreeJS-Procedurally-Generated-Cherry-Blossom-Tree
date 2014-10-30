@@ -7,6 +7,7 @@
 		<style>
 			body {
 				margin: 0px;
+				padding: 0px;
 				overflow: hidden;
 			}
 
@@ -251,7 +252,7 @@
 
 
 			var LEAVES = 10000; // 10000 is ideal
-			var ON_TREE = 0, ON_AIR = 5, ON_GROUND = 2;
+			var ON_TREE = 0, ON_AIR = 1, ON_GROUND = 20;
 			GROUND_WIDTH = 1000;
 			GROUND_ELEVATION = 1000;
 
@@ -263,7 +264,10 @@
 			tt = 0;
 			sins = [];
 			last = Date.now();
-			windForce = new THREE.Vector3(1000,700,400);
+			windForce = new THREE.Vector3(0, 0 ,0);
+			//windForce.setZ(GROUND_WIDTH * GROUND_WIDTH);
+			//windForce.setY(GROUND_ELEVATION * GROUND_ELEVATION);
+			//windForce.setX(GROUND_WIDTH)
 
 			var info = document.getElementById('info');
 			info.addEventListener('mouseover', function() {
@@ -296,7 +300,7 @@
 			}
 
 			function leavesFall() {
-				setTimeout(leavesFall, 100 * Math.random() * Math.random());
+				setTimeout(leavesFall, 10 * Math.random() * Math.random() / 2);
 
 				fallings[Math.random() * LEAVES | 0] = ON_AIR;
 			}
