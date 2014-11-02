@@ -94,23 +94,48 @@ textarea {
 }
 
 /* ==========================================================================
-   Author's custom styles
+   DaneTheory Custom Styles
    ========================================================================== */
 
+body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
 
+#xgui {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    background-color: #fff;
+    opacity: 0.2;
+}
 
+#xgui:hover {
+    opacity: 0.9;
+}
 
+hr {
+    border: 0;
+    color: #454662;
+    background-color: #454662;
+    height: 1px;
+    width: 300px;
+    opacity: 0.15;
+}
 
+.blur {
+    -webkit-filter: blur(6px);
+    -moz-filter: blur(6px);
+    -o-filter: blur(6px);
+    -ms-filter: blur(6px);
+    filter: blur(6px);
+}
 
-
-
-
-
-
-
-
-
-
+canvas {
+    transition: all 0.5s;
+}
 
 
 /* ==========================================================================

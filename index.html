@@ -4,107 +4,40 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Branden Dane</title>
-        <meta name="author" content="Branden Dane">
-	    <meta name="description" content="Branden Dane. Developer. Designer. Professional Thinker. Caught all 150 pokemon.">
-	    <meta name="keywords" content="branden dane portfolio website drupal wordpress developer designer">
-        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				margin: 0px;
-				padding: 0px;
-				overflow: hidden;
-			}
 
-			#xgui {
-				position: absolute;
-				right: 0;
-				top: 0;
-				z-index: 100;
-				background-color: #fff;
-				opacity: 0.2;
-			}
+<head>
 
-			#xgui:hover {
-				opacity: 0.9;
-			}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Branden Dane</title>
+<meta name="author" content="Branden Dane">
+<meta name="description" content="Branden Dane. Developer. Designer. Professional Thinker. Caught all 150 pokemon.">
+<meta name="keywords" content="branden dane portfolio website drupal wordpress developer designer">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	
+<!-- CSS STYLESHEETS -->	
+        <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="../css/main.css">
+        
+<!---FONTS-->
+	    <link rel="stylesheet" href="../fonts/fonts.css">
 
-			#info {
-				position: absolute;
-				width: 100%;
-				z-index: 10;
-				text-align: center;
-				font-family:  monospace;
-				height: 30px;
-				white-space: pre-wrap;
-				word-wrap: break-word; 
-				overflow: hidden;
-				cursor: pointer;
-				color: #454662; 
-				/*8039A6*/
-			}
-
-			a:hover, a:visited, a:link, a:active {
-				color: #454662;
-			}
-
-			hr {
-				border: 0;
-				color: #454662;
-				background-color: #454662;
-				height: 1px;
-				width: 300px;
-				opacity: 0.15;
-			}
-
-			#info:hover {
-				height: auto;
-				cursor: crosshair;
-
-			}
-
-			.blur {
-				-webkit-filter: blur(6px);
-				-moz-filter: blur(6px);
-				-o-filter: blur(6px);
-				-ms-filter: blur(6px);
-				filter: blur(6px);
-			}
-
-			canvas {
-				transition: all 0.5s;
-			}
-
-			iframe {
-				position: absolute;
-				right: 0;
-				bottom: 0;
-				opacity: 0.3;
-				transition: opacity 0.5s;
-			}
-
-			iframe:hover {
-				opacity: 1;
-			}
-
-		</style>
-		
-		<!--Vendor Fixes-->
+<!-- VENDOR FIXES -->
         <script type="text/javascript" src="../js/vendor/prefixfree.min.js"></script>
         <script type="text/javascript" src="../js/vendor/modernizr-2.6.2.min.js"></script>
         <!--[if lt IE 9]>
 	    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	    <![endif]-->
 		
-		<!--HTML5 BOLIERPLATE SCRIPTS-->
+<!-- HTML5 BOLIERPLATE SCRIPTS -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="../js/plugins.js"></script>
         <script src="../js/main.js"></script>
-		
+    
+<!-- JAVASCRIPT BAKED SCRIPTS -->		
         <script type="text/javascript" src="../js/old/three.min.js"></script>
 		<script type="text/javascript" src="../js/stats.min.js"></script>
 	    <script type="text/javascript" src="../js/vendor/Detector.js"></script>
@@ -116,7 +49,6 @@
 	    <script type="text/javascript" src="../js/vendor/OrbitControls.js"></script>
 	    <script type="text/javascript" src="../js/vendor/THREEx.KeyboardState.js"></script>
 	    <script type="text/javascript" src="../js/vendor/THREEx.GeometryUtils.js"></script>
-	    <script type="text/javascript" src="../js/vendor/threex.dragpancontrols.js"></script>
 	    <script type="text/javascript" src="../js/vendor/THREEx.DeviceOrientationState.js"></script>
 	    <script type="text/javascript" src="../js/vendor/threex.domevents.js"></script>
 	    <script type="text/javascript" src="../js/vendor/THREEx.FullScreen.js"></script>
@@ -126,11 +58,12 @@
 		<script type="text/javascript" src="../js/crayon.min.js"></script>
 		<script type="text/javascript" src="../js/ParticleGeometry.js"></script>
 		<script type="text/javascript" src="../js/GeometryUtils.js"></script>
-		
-<script type="text/javascript">
-// Paul Irish RequestAnimationFrame Vendor Fix Snippet //
-	window.requestAnimFrame = (function(){
-      return  window.requestAnimationFrame       || 
+
+<!-- HEADER CUSTOM SCRIPTS -->		
+        <script type="text/javascript">
+        // Paul Irish RequestAnimationFrame Vendor Fix Snippet //
+	        window.requestAnimFrame = (function(){
+              return  window.requestAnimationFrame       || 
               window.webkitRequestAnimationFrame || 
               window.mozRequestAnimationFrame    || 
               window.oRequestAnimationFrame      || 
@@ -138,540 +71,578 @@
               function(/* function */ callback, /* DOMElement */ element){
                 window.setTimeout(callback, 1000 / 60);
               };
-    })();
-</script>
-	
-	</head>
-	<body>
-      <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+        })();
+        </script>
+
+</head>
+
+<!--------------------------------------- BODY START ---------------------------------------->
+    <body>
+
+    <!-- BrowserHappy  
+    -------------------->
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
         
-<!-- Pre-loader -->
-<div id="preloader">
-    <div id="status">&nbsp;</div>
-</div>
-	
+        
+        <!-- Pre-Loader  
+        -------------------->
+        <div id="preloader">
+            <div id="status">&nbsp;</div>
+        </div>
+        
+            
+            
+            <!-- Vertex Shader   
+            -------------------->
+	        <script id="vertexShader" type="x-shader/x-vertex">
+            precision mediump float;
+            precision mediump int;
+            uniform mat4 modelViewMatrix;
+            uniform mat4 projectionMatrix;
+            attribute vec3 position;
+            attribute vec3 offset;
+            attribute vec3 rotation;
+            attribute vec2 uv;
+            attribute vec3 color;
+            varying vec3 vColor;
+            varying vec2 vUv;
 
-		<script id="vertexShader" type="x-shader/x-vertex">
-
-			precision mediump float;
+                void main()	{
+                    vColor = color;
+                    float
+				    cosrx = cos(rotation.x),
+				    sinrx = sin(rotation.x),
+				    cosry = cos(rotation.y),
+				    sinry = sin(rotation.y),
+				    cosrz = cos(rotation.z),
+				    sinrz = sin(rotation.z);
+				    mat3 rotX = mat3(
+					    0.0, 0.15, 0.15,
+					    0.0, cosrx, sinrx,
+					    0.0, -sinrx, cosrx
+                        );
+                    mat3 rotY =  mat3(
+					    cosry, 1.0, -sinry,
+					    2.0, 1.0, 0.0,
+					    sinry, 0.0, cosry
+				        );
+				    mat3 rotZ =  mat3(
+					    cosrz, sinrz, 0.0,
+					    -sinrz, cosrz, 0.0,
+					    0.0, 0.0, 1.0
+				        );
+                    vec3 newPosition = offset + position * rotZ * rotY * rotX;
+		            vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 
+                    );
+                }
+            </script>
+            
+            
+            
+            <!-- Fragment Shader   
+            ---------------------->
+		    <script id="fragmentShader" type="x-shader/x-fragment">
+            precision mediump float;
 			precision mediump int;
-
-			uniform mat4 modelViewMatrix; // optional
-			uniform mat4 projectionMatrix; // optional
-
-			attribute vec3 position;
-			attribute vec3 offset;
-			attribute vec3 rotation;
-			attribute vec2 uv;
-
-			attribute vec3 color;
-			
-
-			varying vec3 vColor;
-			varying vec2 vUv;
-
-			void main()	{
-
-				vColor = color;
-
-
-				float
-				cosrx = cos(rotation.x),
-				sinrx = sin(rotation.x),
-				cosry = cos(rotation.y),
-				sinry = sin(rotation.y),
-				cosrz = cos(rotation.z),
-				sinrz = sin(rotation.z);
-				
-				mat3 rotX = mat3(
-					0.0, 0.15, 0.15,
-					0.0, cosrx, sinrx,
-					0.0, -sinrx, cosrx
-				);
-
-				mat3 rotY =  mat3(
-					cosry, 1.0 , -sinry,
-					2.0    , 1.0, 0.0,
-					sinry, 0.0, cosry
-				);
-
-				mat3 rotZ =  mat3(
-					cosrz , sinrz, 0.0,
-					-sinrz, cosrz, 0.0,
-					0.0 , 0.0    , 1.0
-				);
-
-				vec3 newPosition = offset + position * rotZ * rotY * rotX;
-		
-				vUv = uv;
-
-				gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
-
-			}
-
-		</script>
-
-		<script id="fragmentShader" type="x-shader/x-fragment">
-
-			precision mediump float;
-			precision mediump int;
-
-			uniform float time;
+            uniform float time;
 			uniform float depth;
 			uniform sampler2D texture;
-
-			varying vec3 vColor;
+            varying vec3 vColor;
 			varying vec2 vUv;
-
-			vec4 pack_depth( const in float depth ) {
-
-				const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0 );
-				const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0 );
-				vec4 res = fract( depth * bit_shift );
+            vec4 pack_depth( const in float depth ) {
+                const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0 
+                );
+				const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0 
+				);
+				vec4 res = fract( depth * bit_shift 
+				);
 				res -= res.xxyz / bit_mask;
 				return res;
-
-			}
-
-			void main()	{
-
-				//gl_FragColor = vec4( 1., 1., 1., 1. );
-				vec4 tex = texture2D(texture, vUv);
-
-				// alpha test
-				if (tex.a < 0.5) discard;
-
-				if (depth > 0.5) {
-
-					gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
-
-				} else {
-
-					vec4 color =  vec4(tex.xyz *  vColor, 1.0 );
-
-					gl_FragData[ 0 ] =  color;
-				}
-
-			}
-
-		</script>
-
-<div id="info"></div>
-		
-		<script type="x-shader/x-fragment" id="fragmentShaderDepth">
-
-			uniform sampler2D texture;
-			varying vec2 vUV;
-
-			vec4 pack_depth( const in float depth ) {
-
-				const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0 );
-				const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0 );
-				vec4 res = fract( depth * bit_shift );
-				res -= res.xxyz * bit_mask;
-				return res;
-
-			}
-
-			void main() {
-
-				vec4 pixel = texture2D( texture, vUV );
-
-				if ( pixel.a < 0.5 ) discard;
-
-				gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
-
-			}
-		</script>
-
-		<script type="x-shader/x-vertex" id="vertexShaderDepth">
-
-			varying vec2 vUV;
-
-			void main() {
-
-				vUV = uv;
-
-				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-
-				gl_Position = projectionMatrix * mvPosition;
-
-			}
-
-		</script>
-
-
-
-		<script>
-
-
-			var LEAVES = 10000; // 10000 is ideal
-			var ON_TREE = 3, ON_AIR = 0, ON_GROUND = 1;
-			GROUND_WIDTH = window.innerWidth * 15;
-			GROUND_ELEVATION = window.innerHeight;
-
-			var camera, scene, renderer;
-			var mesh;
-			var stats;
-			var tree1;
-			var mouseX = 0;
-            var mouseY = 0;
-            var windowHalfX = window.innerWidth / 2;
-            var windowHalfY = window.innerHeight / 2;
-            
-            // call the render function
-                            var step = 0;
-
-			tt = 0;
-			sins = [];
-			last = Date.now();
-			windForce = new THREE.Vector3(1000, -1000 ,500);
-			//windForce.setZ(GROUND_WIDTH * GROUND_WIDTH);
-			//windForce.setY(GROUND_ELEVATION * GROUND_ELEVATION);
-			//windForce.setX(GROUND_WIDTH)
-
-			var info = document.getElementById('info');
-			info.addEventListener('mouseover', function() {
-				renderer.domElement.classList.add('blur');
-			});
-
-			info.addEventListener('mouseout', function blur() {
-				renderer.domElement.classList.remove('blur');
-			});
-
-			init();
-			leavesFall();
-			animate();
-			render();
-			
-			
-
-			function hill(u, v) {
-
-				u = 0.5 - u;
-				v = v - 0.5;
-
-				var r2 = u * u * 0.5 + v * v * 0.5;
-				
-				return new THREE.Vector3(u * 7000, - r2 * 9000 , v * 7000);
-			}
-
-			function checkFloor(x, y) {
-				var u = x / 1000;
-				var v = y / 1000;
-				var r2 = u * u + v * v;
-				return - r2 * 1000;
-			}
-
-			function leavesFall() {
-				setTimeout(leavesFall, 0.1);
-
-				fallings[Math.random() / 20 * Math.PI * LEAVES | 0] = ON_AIR;
-			}
-
-			function proctreeToBufferGeometry(vertices, faces, UVs, NORMALS) {
-
-				var geometry = new THREE.BufferGeometry();
-
-				var triangles = faces.length;
-
-				var positions = new Float32Array( triangles * 3 * 3 );
-				var normals = new Float32Array( triangles * 3 * 3 );
-				var uvs = new Float32Array( triangles * 3 * 2 );
-
-				geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-				geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
-				geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 4 ) );
-
-				var ii = 0, jj = 0, kk = 0;
-
-				for (i=0, il=faces.length; i < il; i++) {
-					var f = faces[i];
-					
-
-					for (j = 0; j < 3; j++) {
-						var vertexIndex = f[j];
-						var vertex = vertices[vertexIndex];
-						var uv = UVs[vertexIndex];
-						var normal = NORMALS[vertexIndex];
-
-						positions[ii++] = vertex[0];
-						positions[ii++] = vertex[1];
-						positions[ii++] = vertex[2];
-
-						normals[kk++] = normal[0];
-						normals[kk++] = normal[1];
-						normals[kk++] = normal[2];
-
-						uvs[ jj ++ ] = uv[0];
-						uvs[ jj ++ ] = uv[1];
-
-
-					}
-				}
-
-				return geometry;
-
-			}
-
-			function addTree() {
-
-				//console.log('generate tree...')
-
-				if (tree1) scene.remove(tree1);
-
-				treeParams = {
-				                "seed":109,
-                                "segments":10,
-                                "levels":4,
-                                "vMultiplier":8.16,
-                                "twigScale":0.85,
-                                "initalBranchLength":0.95,
-                                "lengthFalloffFactor":0.96,
-                                "lengthFalloffPower":0.99,
-                                "clumpMax":0.487,
-                                "clumpMin":0.417,
-                                "branchFactor":3.25,
-                                "dropAmount":0.03,
-                                "growAmount":0.261,
-                                "sweepAmount":0.046,
-                                "maxRadius":0.229,
-                                "climbRate":0.754,
-                                "trunkKink":0.424,
-                                "treeSteps":2,
-                                "taperRate":0.941,
-                                "radiusFalloffRate":0.68,
-                                "twistRate":5.28,
-                                "trunkLength":0.95,
-                                "twigMaterial":"BranchType4"
-                                                            } 
-
-				// console.log(JSON.stringify(treeParams));
-
-				tree = new Tree(treeParams);
-
-				treeGeometry = proctreeToBufferGeometry(tree.verts, tree.faces, tree.UV, tree.normals);
-				twigGeometry = proctreeToBufferGeometry(tree.vertsTwig, tree.facesTwig, tree.uvsTwig, tree.normalsTwig);
-
-				treeGeometry.applyMatrix( new THREE.Matrix4().makeScale( 100, 100, 100 ) );
-				twigGeometry.applyMatrix( new THREE.Matrix4().makeScale( 100, 100, 100 ) );
-
-				trunkMesh = new THREE.Mesh(treeGeometry,  new THREE.MeshPhongMaterial( { // MeshPhongMaterial
-					color: 0x000000,
-					emissive: 0x4A4A4A,
-                    ambient: 0x1F1F1F,
-                    shading: THREE.SmoothShading,
-                    fog: true,
-                    blending: THREE.AdditiveBlending,
-                    alphaTest: 0.9,
-                    shininess: 100,
-                    size: 20,
-                    operation: THREE.MultiplyOperation,
-                    datatype: THREE.FloatType,
-                    wrappingmode: THREE.ClampToEdgeWrapping
+                }
                     
-                }));
-                    
-                leavesTexture = THREE.ImageUtils.loadTexture( "../images/code2.png" );	
-				
-				leavesMesh = new THREE.Mesh(twigGeometry,  new THREE.MeshBasicMaterial( {
-					side: THREE.DoubleSide,
-					alphaTest: 0.95,
-					color: 0x4A4A4A,
-					emissive: 0xBBBBBB,
-					shininess: 200,
-					map: (leavesTexture),
-                      blending: THREE.AdditiveBlending,
-                      transparent: true,
-                      size: 20,
-                      fog: true,
-                      shading: THREE.SmoothShading,
-                      datatype: THREE.FloatType,
-                      wrappingmode: THREE.ClampToEdgeWrapping,
-                      opacity: 1,
-                      mappingmode: THREE.UVMapping,
-                      operation: THREE.MultiplyOperation
-				} ));
+                    void main()	{
+                        //gl_FragColor = vec4( 1., 1., 1., 1. );
+				        vec4 tex = texture2D(texture, vUv
+                        );
+                        
+                        // alpha test
+				        if (tex.a < 0.5) discard;
+                            if (depth > 0.5) {
+                                    gl_FragData[ 0 ] = pack_depth(gl_FragCoord.z
+                                    );
+                                } else {
+                                    vec4 color =  vec4(tex.xyz * vColor, 1.0
+                                    );
+                                    gl_FragData[ 0 ] =  color;
+                        }
+                    }
+            </script>
 
                 
+    
+    <!-- Blur Effect DIV   
+    ---------------------->
+    <div id="blurMe"></div>
+		        
+		        
+		      
+              <!-- Fragment Depth Shader   
+              --------------------------->
+		      <script type="x-shader/x-fragment" id="fragmentShaderDepth">
+              uniform sampler2D texture;
+			  varying vec2 vUV;
+              vec4 pack_depth( const in float depth ) {
+                  const vec4 bit_shift = vec4( 256.0 * 256.0 * 256.0, 256.0 * 256.0, 256.0, 1.0
+                  );
+				  const vec4 bit_mask  = vec4( 0.0, 1.0 / 256.0, 1.0 / 256.0, 1.0 / 256.0
+				  );
+				  vec4 res = fract( depth * bit_shift
+				  );
+				  res -= res.xxyz * bit_mask;
+				  return res;
+                  }
+    
+                      void main() {
+                          vec4 pixel = texture2D( texture, vUV
+                          );
+                          
+                            if ( pixel.a < 0.5 ) discard;
+                          
+                          gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z
+                          );
+                   }
+		       </script>
+		       
+		       
+		       
+               <!-- Vertex Depth Shader   
+               -------------------------->
+               <script type="x-shader/x-vertex" id="vertexShaderDepth">
+               varying vec2 vUV;
+               
+                   void main() {
+                       vUV = uv;
+                       vec4 mvPosition = modelViewMatrix * vec4( position, 1.0
+                       );
+                       gl_Position = projectionMatrix * mvPosition;
+                    }
+               </script>
+               
+               
+               
+               
+               
+               
+                    <!-- SCENE MAIN JAVASCRIPT BEGIN   
+                    ------------------------------------------->
+                    <script type="text/javascript">
+                        
+                        //10000 Leaves Keeps Code Stable
+                        var LEAVES = 10000;
+                        
+                        //Defines Leaf "petal" Relationship To Corresponding Environment
+                        //NOTE: Ground Leaves Currently Disabled In Render
+			            var ON_TREE = 3, ON_AIR = 0, ON_GROUND = 1;
+			            
+			            //Ground Plane Defining Size Variables 
+			            var GROUND_WIDTH = window.innerWidth * 15;
+			            var GROUND_ELEVATION = window.innerHeight;
+                        
+                        //ThreeJS Necessary Variables
+                        var camera, scene, renderer;
+                        
+                        //CHECK: Potential Variable That Can Be Removed                        
+                        var mesh;
+			            
+			            //CHECK: Debugging Tool via ThreeJS. Monitor Scene FPS
+			            var stats;
+			            
+			            //Fallback Tree Variable In Case Procedurally Generated Tree Breaks
+			            var tree1;
+			            
+			            //CHECK: Debugging Variables For Determining Mouse Coordinates
+			            //Potential Variables To Be Removed
+			            var mouseX = 0;
+                        var mouseY = 0;
+                        
+                        //CHECK: Potential Variables That Can Be Removed 
+                        var windowHalfX = window.innerWidth / 2;
+                        var windowHalfY = window.innerHeight / 2;
+            
+                        //Defines Baseline For Incremental Steps Used In Render
+                        var step = 0;
+                        
+                        //CHECK: Potential Variable That Can Be Removed 
+			            tt = 0;
+			            
+			            //Defines Array Used In Animation Function
+			            sins = [];
+			            
+			            //Defines Array Used In Animation Function
+			            //CHECK: Potential Variable That Can Be Removed
+			            //Exists Within Animation Function Already
+			            last = Date.now();
+			            
+			            //Defines Variable Used In Creating "Wind" Physics In Scene
+			            windForce = new THREE.Vector3(1000, -1000 ,500);
+
+                        //Defines Variable Used In Canvas Wide Blur Effect
+			            blurMe = document.getElementById('blurMe');
+			            
+			                    //Function For Canvas Blur On MouseOver
+				                blurMe.addEventListener('mouseover', function() {
+				                    renderer.domElement.classList.add('blur');
+			                    });
+                            
+                                //Function To Remove Canvas Blur On MouseOut
+			                    blurMe.addEventListener('mouseout', function blur() {
+				                    renderer.domElement.classList.remove('blur');
+			                    });
+                        
+                        // Defines Function Used For Scene Initilization
+			            init();
+			            
+			            //Defines Function Used In Configuring "Falling" Leaves
+			            leavesFall();
+			            
+			            //Defines Default ThreeJS Functions Necessary For Scene To Work
+			            //The Animate Function References "Time" To Update The Scene Each Frame Thus Enabling "Animations"
+			            //The Render Function Is Used To Render Any And All Objects In Scene. Mainly: Camera And Scene
+			            animate();
+			            render();
+			
+			                
+			                
+			                
+			                
+			                //Function Which Defines Math Used To Create Parametric Plane Geometry aka, the Ground Plane
+			                function hill(u, v) {
+                                u = 0.5 - u;
+                                v = v - 0.5;
+                                var r2 = u * u * 0.5 + v * v * 0.5;
+				                    
+				                    return new THREE.Vector3(u * 7000, - r2 * 9000 , v * 7000);
+                            }
+                            
+                            //Function That Checks Animation Function Status Of Ground Plane To
+                            //Potentially Alter Leaf Behavior On Ground Plane
+                            //CHECK: Potentially Unnecessary Now Since Ground Longer Animations Alongside Leaves
+			                function checkFloor(x, y) {
+				                var u = x / 1000;
+				                var v = y / 1000;
+				                var r2 = u * u + v * v;
+				                    
+				                    return - r2 * 1000;
+			                }
+                            
+                            //Function For Setting Up Math Behind "Falling" Leaves
+                            //Function Begins With setTimeout Which Delays Immediate
+                            //Leaf Animation Caused Via Windforce Function
+			                function leavesFall() {
+				                setTimeout(leavesFall, 0.1); //Increase Second Parameter To Delay Leaves "Falling" Animation
+                                    
+                                fallings[Math.random() / 20 * Math.PI * LEAVES | 0] = ON_AIR; //Leaf Math For Behavior While In "Air"
+			                }
+                            
+                            //Function For Math Needed For Procedural Tree Generation Via Proctree.js
+			                function proctreeToBufferGeometry(vertices, faces, UVs, NORMALS) {
+                                var geometry = new THREE.BufferGeometry();
+                                var triangles = faces.length;
+                                var positions = new Float32Array( triangles * 3 * 3 ); //Float32Array For Optimized Memory Storage
+				                var normals = new Float32Array( triangles * 3 * 3 );   //Float32Array For Optimized Memory Storage
+				                var uvs = new Float32Array( triangles * 3 * 2 );       //Float32Array For Optimized Memory Storage
+
+				                    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+				                    geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
+				                    geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 4 ) );
+
+				                      
+                                      var ii = 0, jj = 0, kk = 0;
+                                        
+                                        for (i=0, il=faces.length; i < il; i++) {
+					                        var f = faces[i];
+					                    
+						                    for (j = 0; j < 3; j++) {
+						                        var vertexIndex = f[j];
+						                        var vertex = vertices[vertexIndex];
+						                        var uv = UVs[vertexIndex];
+						                        var normal = NORMALS[vertexIndex];
+                                                    
+                                                    positions[ii++] = vertex[0];
+						                            positions[ii++] = vertex[1];
+						                            positions[ii++] = vertex[2];
+                                                    normals[kk++] = normal[0];
+						                            normals[kk++] = normal[1];
+						                            normals[kk++] = normal[2];
+                                                    uvs[ jj ++ ] = uv[0];
+						                            uvs[ jj ++ ] = uv[1];
+                                             }
+				                        }
+                                            return geometry;
+                            }
+                            
+                            //Function To Create Procudurally Generated Tree For Render Into Scene
+                            function addTree() {
+                                if (tree1) scene.remove(tree1); //Fallback For Tree If Proc. TreE Breaks
+                                    
+                                    //JSON Parameters Used To Create Proc. Tree
+                                    treeParams = {
+				                        "seed":109,
+                                        "segments":10,
+                                        "levels":4,
+                                        "vMultiplier":8.16,
+                                        "twigScale":0.85,
+                                        "initalBranchLength":0.95,
+                                        "lengthFalloffFactor":0.96,
+                                        "lengthFalloffPower":0.99,
+                                        "clumpMax":0.487,
+                                        "clumpMin":0.417,
+                                        "branchFactor":3.25,
+                                        "dropAmount":0.03,
+                                        "growAmount":0.261,
+                                        "sweepAmount":0.046,
+                                        "maxRadius":0.229,
+                                        "climbRate":0.754,
+                                        "trunkKink":0.424,
+                                        "treeSteps":2,
+                                        "taperRate":0.941,
+                                        "radiusFalloffRate":0.68,
+                                        "twistRate":5.28,
+                                        "trunkLength":0.95,
+                                        "twigMaterial":"BranchType4"
+                                     } 
+
+                                         tree = new Tree(treeParams);
+                                             
+                                             treeGeometry = proctreeToBufferGeometry(tree.verts, tree.faces, tree.UV, tree.normals);
+				                             twigGeometry = proctreeToBufferGeometry(tree.vertsTwig, tree.facesTwig, tree.uvsTwig, tree.normalsTwig);
+                                                 treeGeometry.applyMatrix( new THREE.Matrix4().makeScale( 100, 100, 100 ) );
+				                                 twigGeometry.applyMatrix( new THREE.Matrix4().makeScale( 100, 100, 100 ) );
+                                                     
+                                                     //Tree Attributes
+				                                     trunkMesh = new THREE.Mesh(treeGeometry,  new THREE.MeshPhongMaterial( { 
+					                                     color: 0x000000,
+					                                     emissive: 0x4A4A4A,
+                                                         ambient: 0x1F1F1F,
+                                                         shading: THREE.SmoothShading,
+                                                         fog: true,
+                                                         blending: THREE.AdditiveBlending,
+                                                         alphaTest: 0.9,
+                                                         shininess: 100,
+                                                         size: 20,
+                                                         operation: THREE.MultiplyOperation,
+                                                         datatype: THREE.FloatType,
+                                                         wrappingmode: THREE.ClampToEdgeWrapping
+                                                      }));
+                    
+                                                
+                                                    leavesTexture = THREE.ImageUtils.loadTexture( "../images/code2.png" ); //Custom PNG Loaded For "Leaf" Appearance
+				                                        
+				                                      
+				                                      //Leaves Attributes    
+				                                      leavesMesh = new THREE.Mesh(twigGeometry,  new THREE.MeshBasicMaterial( {
+					                                      side: THREE.DoubleSide,
+                                                          alphaTest: 0.95,
+                                                          color: 0x4A4A4A,
+                                                          emissive: 0xBBBBBB,
+                                                          shininess: 200,
+                                                          map: (leavesTexture),
+                                                          blending: THREE.AdditiveBlending,
+                                                          transparent: true,
+                                                          size: 20,
+                                                          fog: true,
+                                                          shading: THREE.SmoothShading,
+                                                          datatype: THREE.FloatType,
+                                                          wrappingmode: THREE.ClampToEdgeWrapping,
+                                                          opacity: 1,
+                                                          mappingmode: THREE.UVMapping,
+                                                          operation: THREE.MultiplyOperation
+				                                       }));
+
+                //Uses Vertex And Fragment OpenGL Scripts Written Above To Prepare "leaf"/Particle System Creation
 				var uniforms = { texture:  { type: "t", value: petalTexture } };
 				var vertexShader = document.getElementById( 'vertexShaderDepth' ).textContent;
 				var fragmentShader = document.getElementById( 'fragmentShaderDepth' ).textContent;
-
-				leavesMesh.customDepthMaterial = new THREE.ShaderMaterial( { uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader } );
-
-				leavesMesh.visible = false;
-
-				tree1 = new THREE.Object3D();
-				tree1.position.z = 0;
-				tree1.position.x = 0;
-				tree1.position.y = 0;
-
-				scene.add(tree1);
-
-				tree1.add(trunkMesh);
-				tree1.add(leavesMesh);
-
-				trunkMesh.castShadow = true;
-				trunkMesh.receiveShadow = true;
-
-				leavesMesh.castShadow = true;
-				leavesMesh.receiveShadow = false;
-
-				points = THREE.GeometryUtils.randomPointsInBufferGeometry(twigGeometry, LEAVES);
-						
-			}
-
-			function init() {
-			
-			    if( Detector.webgl ){
-				renderer = new THREE.WebGLRenderer({
-					devicePixelRatio: 1,
-					antialias		: true,	// to get smoother output
-					preserveDrawingBuffer	: true	// to allow screenshot
-				});
-				renderer.setClearColor( 0xFFFFFF );
-			}else{
-				renderer	= new THREE.CanvasRenderer();
-			}
-			renderer.shadowMapEnabled = true;
-            renderer.shadowMapType = THREE.PCFShadowMap;
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
-
-
-				//
-
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				document.body.appendChild( stats.domElement );
-
-				//
-
-				CRAYON.extends( 'SceneNode', CRAYON.ShaderNode, {
-
-					init: function() {
-
-						CRAYON.ShaderNode.call( this );
-						// Renders scene to Render Target				
-						camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 500000 );
-                        //camera.position.set(90, 0, 40);
-                        camera.position.set(-2700,300,-300);
                     
-                        //cameraControls.target.set(0,50,0);
-                        
-						camera.target = new THREE.Vector3().set(0,0,0);
-						scene = new THREE.Scene();
-						//renderer.setClearColor( 0xFFFFFF );
-						//scene.fog = new THREE.Fog( 0x000000, 2000 );
+                    leavesMesh.customDepthMaterial = new THREE.ShaderMaterial( { uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader } );
+                    leavesMesh.visible = false;
+                    
+                        tree1 = new THREE.Object3D();
+				        tree1.position.z = 0;
+				        tree1.position.x = 0;
+				        tree1.position.y = 0;
+                
+                            scene.add(tree1); //Adds Tree To Scene
+
+				        tree1.add(trunkMesh);//Adds Tree Attributes To Tree
+				        tree1.add(leavesMesh);//Adds Leaves Attributes To Leaves
+
+				            trunkMesh.castShadow = true; //Tree Casts Shadow. Turn Off For Increase In Scene Performance
+				            trunkMesh.receiveShadow = true; //Tree Recieves Shadows. Turn Off For Increase In Scene Performance
+                            leavesMesh.castShadow = true; //Leaves Casts Shadow. Turn Off For Increase In Scene Performance
+				            leavesMesh.receiveShadow = false; //Leaves Recieve Shadows. Currently Disabled. Improves Performace And Doesn't Seem Necessary
+
+						        points = THREE.GeometryUtils.randomPointsInBufferGeometry(twigGeometry, LEAVES);
+						
+			                } //END FUNCTION FOR PROC. TREE AND LEAVES!
+
+			
+			                
+			                
+			                //Function Which Initilizes Scene
+			                function init() {
+			                        if( Detector.webgl ){
+				                        renderer = new THREE.WebGLRenderer({
+					                        devicePixelRatio: 1,        // TODO:FIND OUT WHAT THIS ATTRIBUTE CAN FULLY DO. 
+					                        antialias: true,            // When True, Smooths Edges And Light Interaction. Disable to Increase Scene Performance
+					                        preserveDrawingBuffer: true	// Allows User To Take Screenshots. Screenshot Button Is "P" Key.
+				                        });
+				                        renderer.setClearColor( 0xFFFFFF );
+			                     }else{
+				                        renderer = new THREE.CanvasRenderer();
+			                            }
+			                            
+			                                renderer.shadowMapEnabled = true; //Enables Shadows InScene. Disable For Improvement In Scene Performance
+                                            renderer.shadowMapType = THREE.PCFShadowMap;
+			                                renderer.setSize( window.innerWidth, window.innerHeight );
+			                                document.body.appendChild( renderer.domElement );
+
+
+
+
+    //FOR DEBUGGING SCENES DURING DEV. SHOWS REALTIME FPS OF SCENE. REMOVE GOING LIVE
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    document.body.appendChild( stats.domElement );
+
+			
+
+				
+				                //Extends ThreeJS Canvas Editing. Currently Used To Create An Overlay Over ThreeJS Scene With Custom PNG For Easy Way Of Adding Vignette To Scene.
+				                CRAYON.extends( 'SceneNode', CRAYON.ShaderNode, {
+
+					            init: function() {
+                                    CRAYON.ShaderNode.call( this );
+						
+						            // Renders Scene To Render Target				
+						            camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 500000 );
+                                    camera.position.set(-2700,300,-300);
+            						camera.target = new THREE.Vector3().set(0,0,0);
+						
+						                scene = new THREE.Scene();
+					                    //scene.fog = new THREE.Fog( 0x000000, 2000 ); //ADD FOG TO SCENE. CURRENTLY DISABLED.
 						
 						
-						// create a camera contol
-			            //cameraControls	= new THREEx.DragPanControls(camera, renderer.domElement);
-			             cameraControls = new THREE.OrbitAndPanControls(camera, renderer.domElement);
-			             cameraControls.target.set(1000,300,-800);
-			             cameraControls.autoRotate = true;
-						 cameraControls.autoRotateSpeed = 0.25;
-                         cameraControls.minDistance = 3000;
-                         cameraControls.maxDistance = 3900;
-                         cameraControls.center = new THREE.Vector3(0,0,0);
-                         cameraControls.userZoom = true;
-                         cameraControls.userZoomSpeed = 0.5;
-                         cameraControls.userRotate = true;
-                         cameraControls.userRotateSpeed = 0.5;
-                         cameraControls.userPan = true;
-                         cameraControls.userPanSpeed = 1.0;
+						                 //Orbit Camera Controls
+			                             cameraControls = new THREE.OrbitAndPanControls(camera, renderer.domElement);
+			                             cameraControls.target.set(1000,300,-800);
+			                             cameraControls.autoRotate = true; //Orbit Camera Auto Rotate. Currently Enabled.
+						                 cameraControls.autoRotateSpeed = 0.25; //Auto Rotate Speed
+                                         cameraControls.minDistance = 3000; //Min Distance Orbit Camera Can Zoom To
+                                         cameraControls.maxDistance = 3900; //Max Distance Orbit Camera Can Zoom Out To
+                                         cameraControls.center = new THREE.Vector3(0,0,0);
+                                         cameraControls.userZoom = true; //Allows User To Zoom
+                                         cameraControls.userZoomSpeed = 0.5; //Zoom Speed Config
+                                         cameraControls.userRotate = true; 
+                                         cameraControls.userRotateSpeed = 0.5;
+                                         cameraControls.userPan = true;
+                                         cameraControls.userPanSpeed = 1.0;
              
                    
                         
-                        // transparently support window resize
-			            THREEx.WindowResize.bind(renderer, camera);
-			            // allow 'p' to make screenshot
-			            THREEx.Screenshot.bindKey(renderer);
-			            // allow 'f' to go fullscreen where this feature is supported
-			            if( THREEx.FullScreen.available() ){
-				            THREEx.FullScreen.bindKey();		
-			            }
-                        
-                        var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
+                //THREEx Plugin To Auto Support Window Resizing In ThreeJS Scene
+			    THREEx.WindowResize.bind(renderer, camera);
+			     
+			    // "p" Key Can Be Used To Take Screenshots. Via ThREEx Plugin
+			    THREEx.Screenshot.bindKey(renderer);
+			            
+			    // "f" Key Will Set The Screen To Full Size Automatically. Via THREEx Plugin
+			    if( THREEx.FullScreen.available() ){
+				    THREEx.FullScreen.bindKey();}
+                 
+                 //THREEx Plugin To Easily Manage DOM Events Such As onClick or MouseOver
+                 //TODO: MAY POTENTIALLY NOT WORK. TEST!!!
+                 var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
                         
  
                
-                        
-						function directionalLight(x, y, z, color) {
-							var light = new THREE.DirectionalLight(color);
-							light.position.set(0,0,0).normalize();
-							light.position.multiplyScalar( 6 );
-							return light;
-						}
+                 
+                 //BEGIN ADDING LIGHTS TO SCENE
+                 //
+                 //Directional Light       
+				 function directionalLight(x, y, z, color) {
+				     var light = new THREE.DirectionalLight(color);
+				     light.position.set(0,0,0).normalize();
+				     light.position.multiplyScalar( 6 );
+				         return light;
+				 }
+                     scene.add(directionalLight(50,50,50, 0xBBBBBB)); //Adds Directional Light To Scene
+                 
+                 //SpotLight 
+				 light = new THREE.SpotLight( 0x909090, 15, 1000, Math.PI / 2, 2 );
+				 light.position.set( -1000, 1000, 0 );
+				 light.target.position.set( -300, 500,-300 );
+                 light.castShadow = true; //SpotLight Casts Shadow. Disable For Better Scene Performance But Will Also Break Look Of Scene
+                 light.shadowCameraNear = -1000;             //Min Distance For Shadow Map
+				 light.shadowCameraFar = 1000;               //Max Distance For Shadow Map
+				 light.shadowCameraFov = 1000;               //Shadow Map Field Of View
+				 light.shadowBias = 0.000025;                //Shadow Intensity
+                 light.shadowDarkness = 0.45;                //Shadow Darkness
+                 light.shadowMapWidth = window.innerWidth;   //Shadow Map Width
+				 light.shadowMapHeight = window.innerHeight; //Shadow Map Height
+                 
+                     scene.add(light); //Adds SpotLight And Shadow Map To Scene Along With Shadow Map Attributes
 
-						scene.add(directionalLight(50,50,50, 0xBBBBBB));
-
-						light = new THREE.SpotLight( 0x909090, 15, 1000, Math.PI / 2, 2 );
-						light.position.set( -1000, 1000, 0 );
-						light.target.position.set( -300, 500,-300 );
-
-						light.castShadow = true;
-
-						light.shadowCameraNear = -1000;
-						light.shadowCameraFar = 1000;
-						light.shadowCameraFov = 1000;
-
-						//light.shadowCameraVisible = true;
-
-						light.shadowBias = 0.000025;
-						light.shadowDarkness = 0.45;
-
-						light.shadowMapWidth = window.innerWidth;
-						light.shadowMapHeight = window.innerHeight;
-
-						scene.add(light);
-
-						scene.add(new THREE.AmbientLight(0xBBBBBB, 0.009));
+				 //Ambient Light
+				 scene.add(new THREE.AmbientLight(0xBBBBBB, 0.009));
 						
 						
-        
-        
+                 
+                 //Create SkyBox For Scene
+		         var imagePrefix = "../images/skybox/";
+	             var directions  = ["posx", "negx", "posy", "negy", "posz", "negz"];
+	             var imageSuffix = ".png";
+	             var skyGeometry = new THREE.CubeGeometry( 8500,8500,8500 );	
+	             var materialArray = [];
+	                 
+		              for (var i = 0; i < 6; i++)
+		                 materialArray.push( new THREE.MeshBasicMaterial({
+			                 map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+			                 side: THREE.BackSide
+	        	         }));
+	        
+	             var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+	             var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+	                 
+	                 scene.add( skyBox ); //Adds SkyBox To Scene
+
+				
+				  //Create Ground Plane For Scene
+				  groundTexture = THREE.ImageUtils.loadTexture( "../images/groundplane.png" ); //Adds Custom texture To Ground Plane
+				  var material = new THREE.MeshLambertMaterial( { 
+				      //color: parseInt("4A4A4A"),
+				      map: (groundTexture),
+				      shininess: 200,
+				      emissive: 0x4A4A4A,
+				      wireframe: !true } );
+
+				  var geometry = new THREE.ParametricGeometry(hill, 10, 10);
+                      ground = new THREE.Mesh( geometry, material );
 						
-						//SkyBox
-		    var imagePrefix = "../images/skybox/";
-	        var directions  = ["posx", "negx", "posy", "negy", "posz", "negz"];
-	        var imageSuffix = ".png";
-	        var skyGeometry = new THREE.CubeGeometry( 8500,8500,8500 );	
-	
-	        var materialArray = [];
-	        for (var i = 0; i < 6; i++)
-		        materialArray.push( new THREE.MeshBasicMaterial({
-			        map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
-			        side: THREE.BackSide
-	        	}));
-	        var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
-	        var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
-	        scene.add( skyBox );
+				          scene.add( ground ); //Adds Ground Plane To Scene
 
-						groundTexture = THREE.ImageUtils.loadTexture( "../images/groundplane.png" );
-						
-						var material = new THREE.MeshLambertMaterial( { 
-						    //color: parseInt("4A4A4A"),
-						    map: (groundTexture),
-						    shininess: 200,
-						    emissive: 0x4A4A4A,
-						    wireframe: !true } );
-
-						var geometry = new THREE.ParametricGeometry(hill, 10, 10);
-
-						ground = new THREE.Mesh( geometry, material );
-						
-						scene.add( ground );
-
-						ground.castShadow = false;
-						ground.receiveShadow = true;
+						      ground.castShadow = false; //Ground Casts Shadows. Currently Disabled
+						      ground.receiveShadow = true; //Ground Recieves Shadows. Enabled. Disable To Imporve Scene Peromance.
 
 
-						petalTexture = THREE.ImageUtils.loadTexture( "../images/code2.png" );
+
+
+
+            petalTexture = THREE.ImageUtils.loadTexture( "../images/code2.png" ); //Adds Custom texture To "petals"
 
 						addTree();
 
