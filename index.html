@@ -1,9 +1,17 @@
 
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-
-		<meta charset="utf-8">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Branden Dane</title>
+        <meta name="author" content="Branden Dane">
+	    <meta name="description" content="Branden Dane. Developer. Designer. Professional Thinker. Caught all 150 pokemon.">
+	    <meta name="keywords" content="branden dane portfolio website drupal wordpress developer designer">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
 				margin: 0px;
@@ -83,19 +91,67 @@
 			}
 
 		</style>
+		
+		<!--Vendor Fixes-->
+        <script type="text/javascript" src="../js/vendor/prefixfree.min.js"></script>
+        <script type="text/javascript" src="../js/vendor/modernizr-2.6.2.min.js"></script>
+        <!--[if lt IE 9]>
+	    <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	    <![endif]-->
+		
+		<!--HTML5 BOLIERPLATE SCRIPTS-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="../js/plugins.js"></script>
+        <script src="../js/main.js"></script>
+		
+        <script type="text/javascript" src="../js/old/three.min.js"></script>
+		<script type="text/javascript" src="../js/stats.min.js"></script>
+	    <script type="text/javascript" src="../js/vendor/Detector.js"></script>
+	    <script type="text/javascript" src="../js/vendor/threex.windowresize.js"></script>
+	    <script type="text/javascript" src="../js/vendor/THREEx.requestAnimationFrame.js"></script>
+        <script type="text/javascript" src="../js/vendor/THREEx.screenshot.js"></script>
+        <script type="text/javascript" src="../js/vendor/OrbitAndPanControls.js"></script>
+        <script type="text/javascript" src="../js/vendor/tween.min.js"></script>
+	    <script type="text/javascript" src="../js/vendor/OrbitControls.js"></script>
+	    <script type="text/javascript" src="../js/vendor/THREEx.KeyboardState.js"></script>
+	    <script type="text/javascript" src="../js/vendor/THREEx.GeometryUtils.js"></script>
+	    <script type="text/javascript" src="../js/vendor/threex.dragpancontrols.js"></script>
+	    <script type="text/javascript" src="../js/vendor/THREEx.DeviceOrientationState.js"></script>
+	    <script type="text/javascript" src="../js/vendor/threex.domevents.js"></script>
+	    <script type="text/javascript" src="../js/vendor/THREEx.FullScreen.js"></script>
+	    <script type="text/javascript" src="../js/vendor/threex.linkify.js"></script>
+		<script type="text/javascript" src="../js/proctree.js"></script>
+	    <script type="text/javascript" src="../js/ThreeUtils2.js"></script>
+		<script type="text/javascript" src="../js/crayon.min.js"></script>
+		<script type="text/javascript" src="../js/ParticleGeometry.js"></script>
+		<script type="text/javascript" src="../js/GeometryUtils.js"></script>
+		
+<script type="text/javascript">
+// Paul Irish RequestAnimationFrame Vendor Fix Snippet //
+	window.requestAnimFrame = (function(){
+      return  window.requestAnimationFrame       || 
+              window.webkitRequestAnimationFrame || 
+              window.mozRequestAnimationFrame    || 
+              window.oRequestAnimationFrame      || 
+              window.msRequestAnimationFrame     || 
+              function(/* function */ callback, /* DOMElement */ element){
+                window.setTimeout(callback, 1000 / 60);
+              };
+    })();
+</script>
+	
 	</head>
 	<body>
-
-		<script src="../js/old/three.min.js"></script>
-		<script src="../js/shader/ShaderDSL.js"></script>
-		<script src="../js/stats.min.js"></script>
+      <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+<!-- Pre-loader -->
+<div id="preloader">
+    <div id="status">&nbsp;</div>
+</div>
 	
-		<script src="../js/proctree.js"></script>
-	
-        <script src="../js/ThreeUtils2.js"></script>
-		<script src="../js/crayon.min.js"></script>
-		<script src="../js/ParticleGeometry.js"></script>
-		<script src="../js/GeometryUtils.js"></script>
 
 		<script id="vertexShader" type="x-shader/x-vertex">
 
@@ -187,13 +243,13 @@
 				// alpha test
 				if (tex.a < 0.5) discard;
 
-				if (depth > 0.) {
+				if (depth > 0.5) {
 
 					gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
 
 				} else {
 
-					vec4 color =  vec4(tex.xyz *  vColor, 1. );
+					vec4 color =  vec4(tex.xyz *  vColor, 1.0 );
 
 					gl_FragData[ 0 ] =  color;
 				}
@@ -223,7 +279,7 @@
 
 				vec4 pixel = texture2D( texture, vUV );
 
-				if ( pixel.a < 0.3 ) discard;
+				if ( pixel.a < 0.5 ) discard;
 
 				gl_FragData[ 0 ] = pack_depth( gl_FragCoord.z );
 
@@ -252,19 +308,26 @@
 
 
 			var LEAVES = 10000; // 10000 is ideal
-			var ON_TREE = 0, ON_AIR = 1, ON_GROUND = 20;
-			GROUND_WIDTH = 1000;
-			GROUND_ELEVATION = 1000;
+			var ON_TREE = 3, ON_AIR = 0, ON_GROUND = 1;
+			GROUND_WIDTH = window.innerWidth * 15;
+			GROUND_ELEVATION = window.innerHeight;
 
 			var camera, scene, renderer;
 			var mesh;
 			var stats;
 			var tree1;
+			var mouseX = 0;
+            var mouseY = 0;
+            var windowHalfX = window.innerWidth / 2;
+            var windowHalfY = window.innerHeight / 2;
+            
+            // call the render function
+                            var step = 0;
 
 			tt = 0;
 			sins = [];
 			last = Date.now();
-			windForce = new THREE.Vector3(0, 0 ,0);
+			windForce = new THREE.Vector3(1000, -1000 ,500);
 			//windForce.setZ(GROUND_WIDTH * GROUND_WIDTH);
 			//windForce.setY(GROUND_ELEVATION * GROUND_ELEVATION);
 			//windForce.setX(GROUND_WIDTH)
@@ -281,28 +344,31 @@
 			init();
 			leavesFall();
 			animate();
+			render();
+			
+			
 
 			function hill(u, v) {
 
 				u = 0.5 - u;
 				v = v - 0.5;
 
-				var r2 = u * u * 0.5 + v * v * 0.5 ;
+				var r2 = u * u * 0.5 + v * v * 0.5;
 				
-				return new THREE.Vector3(u * GROUND_WIDTH, - r2 * GROUND_ELEVATION , v * GROUND_WIDTH);
+				return new THREE.Vector3(u * 7000, - r2 * 9000 , v * 7000);
 			}
 
 			function checkFloor(x, y) {
-				var u = x / GROUND_WIDTH;
-				var v = y / GROUND_WIDTH;
+				var u = x / 1000;
+				var v = y / 1000;
 				var r2 = u * u + v * v;
-				return - r2 * GROUND_ELEVATION;
+				return - r2 * 1000;
 			}
 
 			function leavesFall() {
-				setTimeout(leavesFall, 10 * Math.random() * Math.random() / 2);
+				setTimeout(leavesFall, 0.1);
 
-				fallings[Math.random() * LEAVES | 0] = ON_AIR;
+				fallings[Math.random() / 20 * Math.PI * LEAVES | 0] = ON_AIR;
 			}
 
 			function proctreeToBufferGeometry(vertices, faces, UVs, NORMALS) {
@@ -317,7 +383,7 @@
 
 				geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
 				geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
-				geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 2 ) );
+				geometry.addAttribute( 'uv', new THREE.BufferAttribute( uvs, 4 ) );
 
 				var ii = 0, jj = 0, kk = 0;
 
@@ -352,26 +418,26 @@
 
 			function addTree() {
 
-				console.log('generate tree...')
+				//console.log('generate tree...')
 
 				if (tree1) scene.remove(tree1);
 
 				treeParams = {
-				                "seed":209,
-                                "segments":6,
+				                "seed":109,
+                                "segments":10,
                                 "levels":4,
                                 "vMultiplier":8.16,
-                                "twigScale":0.32,
+                                "twigScale":0.85,
                                 "initalBranchLength":0.95,
                                 "lengthFalloffFactor":0.96,
                                 "lengthFalloffPower":0.99,
                                 "clumpMax":0.487,
-                                "clumpMin":0.447,
+                                "clumpMin":0.417,
                                 "branchFactor":3.25,
                                 "dropAmount":0.03,
                                 "growAmount":0.261,
                                 "sweepAmount":0.046,
-                                "maxRadius":0.209,
+                                "maxRadius":0.229,
                                 "climbRate":0.754,
                                 "trunkKink":0.424,
                                 "treeSteps":2,
@@ -379,7 +445,6 @@
                                 "radiusFalloffRate":0.68,
                                 "twistRate":5.28,
                                 "trunkLength":0.95,
-                                "trunkMaterial":"TrunkType3",
                                 "twigMaterial":"BranchType4"
                                                             } 
 
@@ -390,20 +455,44 @@
 				treeGeometry = proctreeToBufferGeometry(tree.verts, tree.faces, tree.UV, tree.normals);
 				twigGeometry = proctreeToBufferGeometry(tree.vertsTwig, tree.facesTwig, tree.uvsTwig, tree.normalsTwig);
 
-				treeGeometry.applyMatrix( new THREE.Matrix4().makeScale( 50, 50, 50 ) );
-				twigGeometry.applyMatrix( new THREE.Matrix4().makeScale( 50, 50, 50 ) );
+				treeGeometry.applyMatrix( new THREE.Matrix4().makeScale( 100, 100, 100 ) );
+				twigGeometry.applyMatrix( new THREE.Matrix4().makeScale( 100, 100, 100 ) );
 
 				trunkMesh = new THREE.Mesh(treeGeometry,  new THREE.MeshPhongMaterial( { // MeshPhongMaterial
-					color: 0xFFFFFF,
-					emissive: 0xFFEFFF,
-				} )); 
-
-				leavesMesh = new THREE.Mesh(twigGeometry,  new THREE.MeshBasicMaterial( { /// MeshBasicMaterial
+					color: 0x000000,
+					emissive: 0x4A4A4A,
+                    ambient: 0x1F1F1F,
+                    shading: THREE.SmoothShading,
+                    fog: true,
+                    blending: THREE.AdditiveBlending,
+                    alphaTest: 0.9,
+                    shininess: 100,
+                    size: 20,
+                    operation: THREE.MultiplyOperation,
+                    datatype: THREE.FloatType,
+                    wrappingmode: THREE.ClampToEdgeWrapping
+                    
+                }));
+                    
+                leavesTexture = THREE.ImageUtils.loadTexture( "../images/code2.png" );	
+				
+				leavesMesh = new THREE.Mesh(twigGeometry,  new THREE.MeshBasicMaterial( {
 					side: THREE.DoubleSide,
-					alphaTest: 0.75,
-					color: 0xffffff,
-					emissive: 0xffffff,
-					shininess: 200
+					alphaTest: 0.95,
+					color: 0x4A4A4A,
+					emissive: 0xBBBBBB,
+					shininess: 200,
+					map: (leavesTexture),
+                      blending: THREE.AdditiveBlending,
+                      transparent: true,
+                      size: 20,
+                      fog: true,
+                      shading: THREE.SmoothShading,
+                      datatype: THREE.FloatType,
+                      wrappingmode: THREE.ClampToEdgeWrapping,
+                      opacity: 1,
+                      mappingmode: THREE.UVMapping,
+                      operation: THREE.MultiplyOperation
 				} ));
 
                 
@@ -416,7 +505,9 @@
 				leavesMesh.visible = false;
 
 				tree1 = new THREE.Object3D();
-				 //tree1.position.z = tt++ * 100 ;
+				tree1.position.z = 0;
+				tree1.position.x = 0;
+				tree1.position.y = 0;
 
 				scene.add(tree1);
 
@@ -427,23 +518,29 @@
 				trunkMesh.receiveShadow = true;
 
 				leavesMesh.castShadow = true;
-				leavesMesh.receiveShadow = true;
+				leavesMesh.receiveShadow = false;
 
 				points = THREE.GeometryUtils.randomPointsInBufferGeometry(twigGeometry, LEAVES);
 						
 			}
 
 			function init() {
-
+			
+			    if( Detector.webgl ){
 				renderer = new THREE.WebGLRenderer({
-					devicePixelRatio: 1
+					devicePixelRatio: 1,
+					antialias		: true,	// to get smoother output
+					preserveDrawingBuffer	: true	// to allow screenshot
 				});
+				renderer.setClearColor( 0xFFFFFF );
+			}else{
+				renderer	= new THREE.CanvasRenderer();
+			}
+			renderer.shadowMapEnabled = true;
+            renderer.shadowMapType = THREE.PCFShadowMap;
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
 
-				renderer.shadowMapEnabled = true;
-				renderer.shadowMapType = THREE.PCFShadowMap;
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
 
 				//
 
@@ -460,63 +557,127 @@
 
 						CRAYON.ShaderNode.call( this );
 						// Renders scene to Render Target				
-						camera = new THREE.PerspectiveCamera( 130, window.innerWidth / window.innerHeight, 50, 5500 );
+						camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 500000 );
                         //camera.position.set(90, 0, 40);
+                        camera.position.set(-2700,300,-300);
+                    
+                        //cameraControls.target.set(0,50,0);
                         
-						camera.target = new THREE.Vector3().set(70,120,-70);
+						camera.target = new THREE.Vector3().set(0,0,0);
 						scene = new THREE.Scene();
-						renderer.setClearColor( 0xFFFFFF );
+						//renderer.setClearColor( 0xFFFFFF );
+						//scene.fog = new THREE.Fog( 0x000000, 2000 );
 						
-
+						
+						// create a camera contol
+			            //cameraControls	= new THREEx.DragPanControls(camera, renderer.domElement);
+			             cameraControls = new THREE.OrbitAndPanControls(camera, renderer.domElement);
+			             cameraControls.target.set(1000,300,-800);
+			             cameraControls.autoRotate = true;
+						 cameraControls.autoRotateSpeed = 0.25;
+                         cameraControls.minDistance = 3000;
+                         cameraControls.maxDistance = 3900;
+                         cameraControls.center = new THREE.Vector3(0,0,0);
+                         cameraControls.userZoom = true;
+                         cameraControls.userZoomSpeed = 0.5;
+                         cameraControls.userRotate = true;
+                         cameraControls.userRotateSpeed = 0.5;
+                         cameraControls.userPan = true;
+                         cameraControls.userPanSpeed = 1.0;
+             
+                   
+                        
+                        // transparently support window resize
+			            THREEx.WindowResize.bind(renderer, camera);
+			            // allow 'p' to make screenshot
+			            THREEx.Screenshot.bindKey(renderer);
+			            // allow 'f' to go fullscreen where this feature is supported
+			            if( THREEx.FullScreen.available() ){
+				            THREEx.FullScreen.bindKey();		
+			            }
+                        
+                        var domEvents = new THREEx.DomEvents(camera, renderer.domElement);
+                        
+ 
+               
+                        
 						function directionalLight(x, y, z, color) {
 							var light = new THREE.DirectionalLight(color);
-							light.position.set(x,y,z).normalize();
+							light.position.set(0,0,0).normalize();
+							light.position.multiplyScalar( 6 );
 							return light;
 						}
 
-						scene.add(directionalLight(.1,2,5, 0xFFFFFF));
+						scene.add(directionalLight(50,50,50, 0xBBBBBB));
 
-						light = new THREE.SpotLight( 0xFFFFFF, 20, 0, Math.PI / 2, 10 );
-						light.position.set( -500, 1100, -1000 );
-						light.target.position.set( -300,500,-300 );
+						light = new THREE.SpotLight( 0x909090, 15, 1000, Math.PI / 2, 2 );
+						light.position.set( -1000, 1000, 0 );
+						light.target.position.set( -300, 500,-300 );
 
 						light.castShadow = true;
 
-						light.shadowCameraNear = -40;
-						light.shadowCameraFar = 100;
-						light.shadowCameraFov = 50;
+						light.shadowCameraNear = -1000;
+						light.shadowCameraFar = 1000;
+						light.shadowCameraFov = 1000;
 
 						//light.shadowCameraVisible = true;
 
-						light.shadowBias = 0.009;
-						light.shadowDarkness = 0.40;
+						light.shadowBias = 0.000025;
+						light.shadowDarkness = 0.45;
 
-						light.shadowMapWidth = window.innerWidth / 2;
-						light.shadowMapHeight = window.innerHeight / 2;
+						light.shadowMapWidth = window.innerWidth;
+						light.shadowMapHeight = window.innerHeight;
 
 						scene.add(light);
 
-						scene.add(new THREE.AmbientLight(0x000000));
+						scene.add(new THREE.AmbientLight(0xBBBBBB, 0.009));
+						
+						
+        
+        
+						
+						//SkyBox
+		    var imagePrefix = "../images/skybox/";
+	        var directions  = ["posx", "negx", "posy", "negy", "posz", "negz"];
+	        var imageSuffix = ".png";
+	        var skyGeometry = new THREE.CubeGeometry( 8500,8500,8500 );	
+	
+	        var materialArray = [];
+	        for (var i = 0; i < 6; i++)
+		        materialArray.push( new THREE.MeshBasicMaterial({
+			        map: THREE.ImageUtils.loadTexture( imagePrefix + directions[i] + imageSuffix ),
+			        side: THREE.BackSide
+	        	}));
+	        var skyMaterial = new THREE.MeshFaceMaterial( materialArray );
+	        var skyBox = new THREE.Mesh( skyGeometry, skyMaterial );
+	        scene.add( skyBox );
 
-						var material = new THREE.MeshBasicMaterial( { color: parseInt("F5FBFB", 16), shininess: 10, wireframe: !true } );
+						groundTexture = THREE.ImageUtils.loadTexture( "../images/groundplane.png" );
+						
+						var material = new THREE.MeshLambertMaterial( { 
+						    //color: parseInt("4A4A4A"),
+						    map: (groundTexture),
+						    shininess: 200,
+						    emissive: 0x4A4A4A,
+						    wireframe: !true } );
 
-						var geometry = new THREE.ParametricGeometry(hill, 4, 4);
+						var geometry = new THREE.ParametricGeometry(hill, 10, 10);
 
 						ground = new THREE.Mesh( geometry, material );
 						
 						scene.add( ground );
 
-						ground.castShadow = !true;
+						ground.castShadow = false;
 						ground.receiveShadow = true;
 
 
-						petalTexture = THREE.ImageUtils.loadTexture( "../images/snowflake7_alpha.png" );
+						petalTexture = THREE.ImageUtils.loadTexture( "../images/code2.png" );
 
 						addTree();
 
 						var cols = [];
 						
-						'FDDBFD,FFDAF0,F2BCE0,F5E6F7,FFB2E1,FBBAE5' // leaves/petals colors
+						'797980,7A1E48,990100,111625,571B3C' // leaves/petals colors
 						.split(',').forEach(function(col) {
 							cols.push( parseInt(col, 16) );
 						} );
@@ -525,7 +686,7 @@
 						var color = new THREE.Color();
 
 						// var
-						leaves = geometry = new THREE.ParticleGeometry( LEAVES, 3.5 );
+						leaves = geometry = new THREE.ParticleGeometry( LEAVES, 20 );
 
 						rx = [], ry = [], rz = [], dx = [], dy = [], dz = [], fallings = [],
 						offset = new THREE.Vector3(),
@@ -537,13 +698,13 @@
 
 							point = points[i];
 
-							if (i < 1000) {
+							if (i < 100) {
 								// distribute them around a disk
-								var r = Math.random() * Math.random() * 300;
-								var t = Math.random() * Math.PI * 2;
-								point.x = Math.cos(t) * r;
-								point.z = Math.sin(t) * r;
-								point.y = checkFloor(point.x, point.z);
+								var r = Math.random() * Math.random() * 1500;
+								var t = Math.random() * Math.PI / 2000;
+								point.x = Math.cos(t) * r / 10;
+								point.z = Math.cos(t) * r * 1000;
+								point.y = checkFloor(point.x / 4, point.z * 4);
 								
 								fallings [ i ] = ON_GROUND;
 							} else {
@@ -551,14 +712,14 @@
 							}
 							
 							geometry.setSprite( 'offsets', i, point.x, point.y, point.z );
-							geometry.setSprite( 'rotations', i, Math.random() * 7, Math.random() * 7, Math.random() * 7);
+							geometry.setSprite( 'rotations', i, Math.random() * 3, Math.random() * 3, Math.random() * 3);
 
-							rx.push(Math.random() - 0.5)
-							ry.push(Math.random() - 0.5)
-							rz.push(Math.random() - 0.5)
-							dx.push(Math.random() - 0.5)
-							dy.push(-Math.random())
-							dz.push(Math.random() - 0.5)
+							rx.push(Math.random() - 0.5 / 2)
+							ry.push(Math.random() - 0.5 / 4)
+							rz.push(Math.random() - 0.5 / 2)
+							dx.push(Math.random() - 0.5 / 3)
+							dy.push(Math.random())
+							dz.push(Math.random() - 0.5 / 4)
 
 							color.set( cols[ Math.random() * cols.length | 0 ] );
 
@@ -579,8 +740,9 @@
 							},
 							vertexShader: document.getElementById( 'vertexShader' ).textContent,
 							fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
-							side: THREE.DoubleSide
-							, transparent: true
+							side: THREE.DoubleSide,
+							size: 20, 
+							transparent: true
 
 						}
 
@@ -594,8 +756,9 @@
 							},
 							vertexShader: document.getElementById( 'vertexShader' ).textContent,
 							fragmentShader: document.getElementById( 'fragmentShader' ).textContent,
-							side: THREE.DoubleSide
-							, transparent: true
+							side: THREE.DoubleSide,
+							size: 20, 
+				            transparent: true
 
 						}
 
@@ -604,32 +767,65 @@
 
 						petals = new THREE.Mesh( geometry, material );
 						petals.castShadow = true;
-						petals.receiveShadow = true;
+						petals.receiveShadow = false;
 						petals.customDepthMaterial = depthMaterial;
 
 						scene.add( petals );
 
 					},
+					
+					
+					
+					
+					
+					
+					
+	
 
 
 					render: function() {
 
 						now = Date.now();
 
-						var t = now * 0.00004;
-						var r = 300;
+						var t = now * 0.000001;
+						var r = 250;
 						
-						camera.position.set(Math.cos(t) * r,  Math.cos(t * 2) * 40 + 45, Math.sin(t) * r);
+						var PIseconds = Date.now() * Math.PI;
 						
-						camera.lookAt(camera.target);
+						//camera.position.set(Math.cos(t) * r,  Math.cos(t * 2) * 40 + 45, Math.sin(t) * r);
+						
+			            cameraControls.update();
+			            camera.position.copy( camera.position );
+						
+						
+						if ( camera.position.y < 0 ) camera.position.y = 0;
+            
+                            camera.position.copy( camera.position );
+
+                        if ( camera.position.y >= 3000 ) camera.position.y = 3000;
+						
+				        
+				             
+				        
+				        camera.lookAt(cameraControls.target);
+				        
+				        
 
 						if (tree1) {
 
-							tree1.rotation.y = Math.sin(now * 0.00015) * 0.05;
-							tree1.rotation.x = Math.sin(now * 0.0009) * 0.02;
-							tree1.rotation.z = Math.sin(now * 0.0008) * 0.02
+							tree1.rotation.y = Math.sin(now * 0.000015) * 0.4;
+							tree1.rotation.x = Math.sin(now * 0.0009) * 0.045;
+							tree1.rotation.z = Math.sin(now * 0.00008) * 0.08
 						}
-
+                        
+                        ground.rotation.y = step += 0.000085;
+                        
+                        
+                        
+                        
+                        // Render Scene
+			            renderer.shadowMapEnabled = true;
+			            renderer.shadowMapType = THREE.PCFSoftShadowMap;
 						renderer.clear();
 						renderer.render( scene, camera, this.renderTarget );
 					}
@@ -653,7 +849,7 @@
 
 				blurNode = new CRAYON.BlurNode( renderer, 1, 1 ); // 1 repeat, 1 downsize
 				blurNode2 = new CRAYON.BlurNode( renderer, 2, 2 );
-				var paper = THREE.ImageUtils.loadTexture( "../images/natural_paper.png" ); // beige-paper-texture.jpg exclusive_paper_@2X
+				var paper = THREE.ImageUtils.loadTexture( "../images/overlay.png" );
 				multiplyNode.material.uniforms.texture3.value = paper;
 
 
@@ -673,22 +869,10 @@
 
 				multiplyNode.connect(screenNode);
 				screenNode.connect(executorNode, 'texture');
-				
-
-				// TODO handle resizing
-				// window.addEventListener( 'resize', onWindowResize, false );
 
 
 			}
 
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-			}
 
 			function animate() {
 
@@ -697,52 +881,54 @@
 				now = Date.now()
 				delta = (now - last) / 1000;
 				last = now;
-				time = now * 0.00015
-				sins[0] = Math.sin(time * 2 + 0)
-				sins[1] = Math.sin(time * 3 + 1.1)
-				sins[2] = Math.sin(time * 5 + 1.3)
-				sins[3] = Math.sin(time * 7 + 1.5)
-				sins[4] = Math.sin(time * 9 + 1.9)
+				time = now * 0.0000025
+				sins[0] = Math.sin(time * 1 + 0.05)
+				sins[1] = Math.sin(time * 2 + 0.1)
+				sins[2] = Math.sin(time * 3 + 0.3)
+				sins[3] = Math.sin(time * 4 + 0.6)
+				sins[4] = Math.sin(time * 5 + 1.2)
 
 
-				windForce.set( Math.sin( now / 2000 ) * 0.5, Math.cos( now / 3000 ) * 0.5, Math.sin( now / 5000 ) * 0.5 - 0.3);
+				windForce.set( Math.cos( now / -5000 ) * 0.5, Math.cos( now * 60000 ) * 2.5, Math.cos( now / -70000 ) * 0.5 - 3.5);
 
 				for (i=0;i<LEAVES;i++) {
 					
 					leaves.getFaceRotation(i * 2, rotation);
 					leaves.getSpriteOffset(i, offset);
+				    leavesMesh.rotation.y += 0.01;
 					
 					// reduce sin calculations. TODO should perhaps use some noise here instead
-					sin = sins[i % 5] + sins[(i+3) % 5] * 0.5 + sins[(i+5) % 5] * 0.25;
+					sin = sins[i % 5] + sins[(i+3) % 5] * 0.5 + sins[(i+5) % 5] * 0.025;
 
 					switch (fallings[i]) {
 
 						case ON_TREE:
-							rotation.x = rx[i] + sin * 0.2;
-							rotation.y = ry[i] + sin * 1.2;
-							rotation.z = rz[i] + sin * 0.2;
+							rotation.x = rx[i] + sin / 2.002;
+							rotation.y = ry[i] + sin / 2.0008;
+							rotation.z = rz[i] + sin / 30.00004;
 
 							offset.copy( points[i] );
 							trunkMesh.localToWorld( offset );
-
+                            leavesMesh.lookAt( scene.position );
+                            
 							break;
 						case ON_AIR:
-							dx[i] += windForce.x * delta * 0.5;
-							dy[i] += windForce.y * delta * 0.5;
-							dy[i] -= 0.2 * delta;
+							dx[i] += windForce.x * delta * 2.025;
+							dy[i] += windForce.y * delta * 0.099;
+							dy[i] -= 0.025 * delta * Math.random();
 							dz[i] += windForce.z * delta * 0.5;
 
-							offset.x += dx[i] * delta * 10;
-							offset.y += dy[i] * delta * 10;
-							offset.z += dz[i] * delta * 10;
+							offset.x += dx[i] * delta * 30;
+							offset.y += dy[i] * delta * 80;
+							offset.z += dz[i] * delta * 15;
 
-							rotation.x += rx[i] * delta * 5;
-							rotation.y += ry[i] * delta * 5;
-							rotation.z += rz[i] * delta * 5;
+							rotation.x += rx[i] * delta * 2.5;
+							rotation.y += ry[i] * delta * 1.25;
+							rotation.z += rz[i] * delta * 4;
 
 							if (offset.y - 5 <= checkFloor(offset.x, offset.z)) {
 								// could repawn here if needed
-								fallings[i] = ON_GROUND;
+								fallings[i] = ON_TREE;
 							}
 
 							break;
@@ -755,6 +941,7 @@
 
 					leaves.setSprite( 'rotations', i, rotation.x, rotation.y, rotation.z );
 					leaves.setSprite( 'offsets', i, offset.x, offset.y, offset.z );
+					
 
 				}
 
@@ -765,7 +952,15 @@
 
 				executorNode.renderAll();
 
+				
 				stats.update();
+				update.camera();
+				cameraControls.update();
+			    camera.lookAt(cameraControls.target);
+			    camera.position.copy( camera.position );
+				
+				// Begin Next Call Back
+        requestAnimationFrame( animate );
 
 			}
 
